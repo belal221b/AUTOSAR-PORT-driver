@@ -2,7 +2,7 @@
 This is a header file Port.h for the TM4C123GH6PM microcontroller - Port Driver. This Port Driver is based on the AUTOSAR layered architecture v4.0.3 and provides APIs for initializing the Port Driver, setting the direction of a pin, refreshing the port direction, setting pin mode, and getting the version information.
 
 # **Installation**
-This header file Port.h should be included in your project's source code directory.
+This header file Port.h should be included in your project's source code directory to use the prt driver for the Tiva-C (TM4C123GH6PM).
 
 # **Usage**
 1. Include Port.h header file in your source code.
