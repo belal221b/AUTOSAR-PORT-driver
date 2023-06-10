@@ -48,4 +48,4 @@ This Port Driver doesn't have a configuration tool, so the symbolic names of eac
     - Patch Version: 0
 
 # **Credits**
-This Port Driver header file was created by Belal Mohamed.
+This Port Driver was created by Belal Mohamed.
