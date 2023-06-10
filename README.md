@@ -11,9 +11,66 @@ This header file Port.h should be included in your project's source code directo
 4. Refresh the direction of the port using Port_RefreshPortDirection() function.
 5. Set the mode of a pin using Port_SetPinMode() function with the pin number and the desired mode.
 6. Get the version information of the Port Driver using Port_GetVersionInfo() function.
+
 # **Configuration**
 This Port Driver doesn't have a configuration tool, so the symbolic names of each Port-Pin in the microcontroller must be defined in the source code by the user. The user also needs to configure the Port_ConfigType structure to initialize the Port Driver with the desired pins' direction, internal resistor, initial value, mode, direction changeability, and mode changeability.
 
+# **Symbolic Names for Port Pins**
+Symbolic names for each port pin in the microcontroller should be provided by the user in their configuration tool. These names are used to identify each pin in the Port_ConfigType structure.
+
+# **Standard AUTOSAR Types**
+The header file includes the standard AUTOSAR types Std_ReturnType and Std_VersionInfoType.
+
+# **Pre-Compile Configuration Header File**
+The Port.h header file includes the pre-compile configuration header file Port_Cfg.h, which contains the configuration settings for the port driver.
+
+# **API Service ID Macros**
+The header file defines macros for the API service IDs for each function.
+
+# **DET Error Codes**
+The header file defines error codes for the DET (Development Error Tracer).
+
+# **Functions**
+### **void Port_Init(const Port_ConfigType* ConfigPtr)**
+ Initializes the port driver with the given configuration settings.
+### **void Port_SetPinDirection(Port_PinType Pin, Port_PinDirectionType Direction)**
+ Sets the direction (input or output) of the given pin.
+### **void Port_RefreshPortDirection(void)**
+ Refreshes the direction of all pins in the port.
+### **void Port_SetPinMode(Port_PinType Pin, Port_PinModeType Mode)**
+ Sets the mode of the given pin.
+### **void Port_GetVersionInfo(Std_VersionInfoType* versioninfo)**
+ Gets the version information of the port driver.
+ 
+# **External Variables**
+extern const Port_ConfigType Port_Configuration: External variable for the port pin configuration set. This variable should be defined in the user's configuration tool.
+# **Macros**
+
+- PORT_VENDOR_ID: Vendor ID of the module
+- PORT_MODULE_ID: Module ID of the module
+- PORT_INSTANCE_ID: Instance ID of the module
+- PORT_SW_MAJOR_VERSION: Software major version of the module
+- PORT_SW_MINOR_VERSION: Software minor version of the module
+- PORT_SW_PATCH_VERSION: Software patch version of the module
+- PORT_AR_RELEASE_MAJOR_VERSION: AUTOSAR major version of the module
+- PORT_AR_RELEASE_MINOR_VERSION: AUTOSAR minor version of the module
+- PORT_PIN_STATUS_INITIALIZED: Status of a pin that has been initialized
+- PORT_PIN_STATUS_UNINITIALIZED: Status of a pin that has not been initialized
+- PORT_NUM_OF_PORT_PINS: Number of pins in a single port
+- PORT_PIN_MODE_DIO: Pin mode for digital input/output
+- PORT_PIN_MODE_ADC: Pin mode for analog to digital conversion
+- PORT_PIN_MODE_CAN: Pin mode for CAN communication
+- PORT_PIN_MODE_DIO_GPT: Pin mode for digital input/output with GPT timer
+- PORT_PIN_MODE_DIO_WDG: Pin mode for digital input/output with WDG timer
+- PORT_PIN_MODE_FLEXRAY: Pin mode for FlexRay communication
+- PORT_PIN_MODE_ICU: Pin mode for input capture unit
+- PORT_PIN_MODE_LIN: Pin mode for LIN communication
+- PORT_PIN_MODE_MEM: Pin mode for memory access
+- PORT_PIN_MODE_PWM: Pin mode for pulse width modulation
+- PORT_PIN_MODE_SPI: Pin mode for SPI communication
+- PORT_PIN_MODE_UART: Pin mode for UART communication
+- PORT_PIN_MODE_I2C: Pin mode for I2C communication
+- 
 # **API Service Id Macros**
 - PORT_INIT_SID: service ID for PORT initialization.
 - PORT_SET_PIN_DIRECTION_SID: service ID for setting pin direction.
