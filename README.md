@@ -31,24 +31,24 @@ The header file defines macros for the API service IDs for each function.
 The header file defines error codes for the DET (Development Error Tracer).
 
 # **Functions**
+### **Port_Init**
 ```
-### **void Port_Init(const Port_ConfigType* ConfigPtr)**
+void Port_Init(const Port_ConfigType* ConfigPtr)
 ```
  Initializes the port driver with the given configuration settings.
+### **Port_SetPinDirection**
 ```
-### **void Port_SetPinDirection(Port_PinType Pin, Port_PinDirectionType Direction)**
+void Port_SetPinDirection(Port_PinType Pin, Port_PinDirectionType Direction)
 ```
  Sets the direction (input or output) of the given pin.
+### **Port_SetPinMode**
 ```
-### **void Port_RefreshPortDirection(void)**
-```
- Refreshes the direction of all pins in the port.
-```
-### **void Port_SetPinMode(Port_PinType Pin, Port_PinModeType Mode)**
+void Port_SetPinMode(Port_PinType Pin, Port_PinModeType Mode)
 ```
  Sets the mode of the given pin.
+### **Port_GetVersionInfo**
 ```
-### **void Port_GetVersionInfo(Std_VersionInfoType* versioninfo)**
+void Port_GetVersionInfo(Std_VersionInfoType* versioninfo)
 ```
  Gets the version information of the port driver.
  
