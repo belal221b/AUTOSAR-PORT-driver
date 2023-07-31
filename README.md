@@ -15,21 +15,6 @@ This header file Port.h should be included in your project's source code directo
 # **Configuration**
 This Port Driver doesn't have a configuration tool, so the symbolic names of each Port-Pin in the microcontroller must be defined in the source code by the user. The user also needs to configure the Port_ConfigType structure to initialize the Port Driver with the desired pins' direction, internal resistor, initial value, mode, direction changeability, and mode changeability.
 
-# **Symbolic Names for Port Pins**
-Symbolic names for each port pin in the microcontroller should be provided by the user in their configuration tool. These names are used to identify each pin in the Port_ConfigType structure.
-
-# **Standard AUTOSAR Types**
-The header file includes the standard AUTOSAR types Std_ReturnType and Std_VersionInfoType.
-
-# **Pre-Compile Configuration Header File**
-The Port.h header file includes the pre-compile configuration header file Port_Cfg.h, which contains the configuration settings for the port driver.
-
-# **API Service ID Macros**
-The header file defines macros for the API service IDs for each function.
-
-# **DET Error Codes**
-The header file defines error codes for the DET (Development Error Tracer).
-
 # **Functions**
 ### **Port_Init**
 ```
@@ -41,11 +26,34 @@ void Port_Init(const Port_ConfigType* ConfigPtr)
 void Port_SetPinDirection(Port_PinType Pin, Port_PinDirectionType Direction)
 ```
  Sets the direction (input or output) of the given pin.
+### **Port_GetVersionInfo**
+```
+void Port_GetVersionInfo(Std_VersionInfoType* versioninfo)
+```
+This function retrieves the version information of the PORT driver.
 ### **Port_SetPinMode**
 ```
 void Port_SetPinMode(Port_PinType Pin, Port_PinModeType Mode)
 ```
  Sets the mode of the given pin.
+ 
+### **Port_SetPinPullUp**
+```
+void Port_SetPinPullUp(Port_PinType Pin, boolean activate)
+```
+This function activates or deactivates the internal pull-up resistor of the specified pin based on the provided parameter.
+
+### **Port_SetPinValue**
+```
+void Port_SetPinValue(Port_PinType Pin, Port_PinValueType Value)
+```
+This function sets the logic level of the specified pin based on the provided value parameter. The value parameter should be one of the following values: PORT_PIN_LOW or PORT_PIN_HIGH.
+
+### **Port_GetPinValue**
+```
+Port_PinValueType Port_GetPinValue(Port_PinType Pin)
+```
+This function retrieves the logic level of the specified pin and returns the result as a Port_PinValueType variable.
 ### **Port_GetVersionInfo**
 ```
 void Port_GetVersionInfo(Std_VersionInfoType* versioninfo)
@@ -98,13 +106,54 @@ extern const Port_ConfigType Port_Configuration: External variable for the port 
 - PORT_E_PARAM_POINTER: DET Code for APIs called with a Null Pointer.
 
 # **Data Types**
-- Port_PinType: data type for the symbolic name of a port pin.
-- Port_PinDirectionType: possible directions of a port pin.
-- Port_PinModeType: different port pin modes.
-- Port_InternalResistor: internal resistor type for PIN.
-- Port_ConfigPin: structure to configure each individual PIN.
-- Port_ConfigType: structure that is required for initialization API.
-- Std_VersionInfoType: standard version information type.
+### **Port_ConfigType**
+This structure contains the configuration data for the PORT driver. It consists of arrays of pin configurations for each port.
+
+### **Port_PinType**
+This typedef represents a binary number that contains the index and port information of a pin. The least significant 4 bits correspond to the index of the pin, while the most significant 4 bits correspond to the index of the port.
+
+### **Port_PinDirectionType**
+This enumeration defines the possible directions that can be used with the PORT driver. It consists of two values: PORT_PIN_IN and PORT_PIN_OUT.
+
+### **Port_PinModeType**
+This enumeration defines the possible modes that can be used with the PORT driver. It consists of two values: **PORT_PIN_MODE_DIO and PORT_PIN_MODE_PWM.**
+
+### **Port_PinValueType**
+This enumeration defines the possible logic levels that can be used with the PORT driver. It consists of two values: PORT_PIN_LOW and PORT_PIN_HIGH.
+
+### **Std_VersionInfoType**
+This structure contains the version information of a software component. It consists of the vendor ID, module ID, instance ID, and software version.
+
+## **Symbolic Names for Port Pins**
+Symbolic names for each port pin in the microcontroller should be provided by the user in their configuration tool. These names are used to identify each pin in the Port_ConfigType structure.
+
+## **Standard AUTOSAR Types**
+The header file includes the standard AUTOSAR types Std_ReturnType and Std_VersionInfoType.
+
+## **Pre-Compile Configuration Header File**
+The Port.h header file includes the pre-compile configuration header file Port_Cfg.h, which contains the configuration settings for the port driver.
+
+## **API Service ID Macros**
+The header file defines macros for the API service IDs for each function.
+
+## **DET Error Codes**
+The header file defines error codes for the DET (Development Error Tracer).
+
+
+# **AUTOSAR Det Driver**
+
+### **Det_ReportError**
+```
+void Det_ReportError(uint16_t ModuleId, uint8_t InstanceId, uint8_t ApiId, uint8_t ErrorId)
+```
+This API is used to report an error to the Development Error Tracer (DET) driver. It takes four parameters: ModuleId, InstanceId, ApiId, and ErrorId. These parameters are used to identify the module, instance, API, and error that caused the error.
+
+## **Implementation Details**
+The DIO driver implementation in this repository uses the Development Error Tracer (DET) driver to detect and report errors during runtime. The AUTOSAR-defined error parameter APIs are used to report errors to the DET driver.
+
+When an error is detected in the DIO driver, it calls one of the error parameter APIs to report the error to the DET driver. The DET driver then handles the error according to the configured error policies, which may include logging the error, notifying the system integrator, or triggering a system reset.
+
+For more information about the DET driver and the error parameter APIs used in the DIO driver implementation, you can refer to the AUTOSAR SWS (Software Specification) for the DIO driver. This document provides a detailed description of the driver architecture, functions, and error handling mechanisms.
 
 # **Version Information**
 - Module Version: 1.0.0
